@@ -11,45 +11,75 @@
 </head>
 <body>
     <div class="grid-bg"></div>
+    <div class="glow-orb"></div>
     
     <header>
         <div class="logo">IRONCORE</div>
-        <div class="status-indicator">
-            <span class="dot pulse"></span>
-            <span class="status-text">NODE_01_ACTIVE</span>
+        <div class="header-actions">
+            <div class="status-indicator">
+                <span class="dot pulse"></span>
+                <span class="status-text">NODE_01_ONLINE</span>
+            </div>
         </div>
     </header>
 
     <main>
         <section class="hero">
-            <div class="meta-tag">$IRONCORE</div>
-            <h1>ROBOTIC AGENCY FORGED ON-CHAIN</h1>
+            <div class="meta-tag">PROTOCOL v1.0.0</div>
+            <h1>ROBOTIC AGENCY<br><span class="highlight">FORGED ON-CHAIN</span></h1>
             <p class="subtitle">Cloud-independent machine intelligence. Powered by localized physical nodes. Secured by Robinhood Virtuals.</p>
             
             <div class="cta-group">
-                <a href="#explore" class="btn primary">INITIALIZE NODE</a>
+                <a href="#console" class="btn primary">INITIALIZE CONSOLE</a>
                 <a href="https://app.virtuals.io" target="_blank" class="btn secondary">BUY $IRONCORE</a>
             </div>
         </section>
 
-        <section id="explore" class="stats-grid">
-            <div class="stat-card">
-                <span class="label">ARCHITECTURE</span>
-                <span class="value">LOCAL_FIRST</span>
+        <!-- Interactive Terminal Simulator -->
+        <section id="console" class="console-section">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="terminal-title">ironcore@node_01:~</div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <p class="term-line"><span class="prompt">ironcore@node_01:~$</span> init_core --protocol=virtuals</p>
+                    <p class="term-line success">✓ Local hardware handshake complete (Latency: 8.4ms)</p>
+                    <p class="term-line success">✓ Verified Robinhood bridge connection</p>
+                    <p class="term-line warning">! Warnings: Cloud APIs bypassed. Edge compute mode active.</p>
+                    <p class="term-line"><span class="prompt">ironcore@node_01:~$</span> load_agent --name=IRONCORE_V1</p>
+                    <p class="term-line success">✓ Agent memory loaded: 80+ industrial skillsets</p>
+                    <p class="term-line blink">■ Waiting for operator commands...</p>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="label">NODE OPERATORS</span>
-                <span class="value">DECENTRALIZED</span>
-            </div>
-            <div class="stat-card">
-                <span class="label">LATENCY</span>
-                <span class="value">&lt; 12MS</span>
+        </section>
+
+        <section class="features">
+            <h2>ARCHITECTURE</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Edge Compute</h3>
+                    <p>No central servers. Agents run directly on decentralized nodes near physical robots. Low latency, zero censorship.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Industrial Logic</h3>
+                    <p>Built with hardware integration safety loops. Prevents software hallucinations from affecting physical motors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Robinhood Rail</h3>
+                    <p>Secured on-chain. Token transactions verify machine access credentials without web2 auth databases.</p>
+                </div>
             </div>
         </section>
 
         <section class="manifesto">
             <h2>THE CORE PRINCIPLE</h2>
-            <p>Software agents are fragile. Cloud networks fail. IRONCORE integrates heavy industrial automation logic with on-chain consensus. We execute AI reasoning locally, close to raw compute, reporting state back to Robinhood Base rails.</p>
+            <p class="quote">"Software agents are fragile. Cloud networks fail. IRONCORE integrates heavy industrial automation logic with on-chain consensus. We execute AI reasoning locally, close to raw compute."</p>
         </section>
 
         <section class="tokenomics">
@@ -58,18 +88,22 @@
                 <div class="tok-item">
                     <h3>Supply</h3>
                     <p class="tok-val">1,000,000,000</p>
+                    <span class="tok-sub">$IRONCORE</span>
                 </div>
                 <div class="tok-item">
                     <h3>Bonding Curve</h3>
                     <p class="tok-val">60%</p>
+                    <span class="tok-sub">Fair Launch</span>
                 </div>
                 <div class="tok-item">
                     <h3>Node Rewards</h3>
                     <p class="tok-val">20%</p>
+                    <span class="tok-sub">Active Operators</span>
                 </div>
                 <div class="tok-item">
                     <h3>Treasury</h3>
                     <p class="tok-val">20%</p>
+                    <span class="tok-sub">R&D and Forge</span>
                 </div>
             </div>
         </section>
