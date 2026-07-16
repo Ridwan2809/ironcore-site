@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syncopate:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="grid-bg"></div>
@@ -16,22 +16,46 @@
     <header>
         <div class="logo">IRONCORE</div>
         <div class="header-actions">
+            <button id="connect-btn" class="btn-mini">CONNECT_OPERATOR</button>
             <div class="status-indicator">
                 <span class="dot pulse"></span>
-                <span class="status-text">NODE_01_ONLINE</span>
+                <span class="status-text" id="status-tag">NODE_01_ONLINE</span>
             </div>
         </div>
     </header>
 
     <main>
         <section class="hero">
-            <div class="meta-tag">PROTOCOL v1.0.0</div>
+            <div class="meta-tag">CORE_AGENCY v1.0.4</div>
             <h1>ROBOTIC AGENCY<br><span class="highlight">FORGED ON-CHAIN</span></h1>
-            <p class="subtitle">Cloud-independent machine intelligence. Powered by localized physical nodes. Secured by Robinhood Virtuals.</p>
+            <p class="subtitle">Decentralized control layer for physical machines. Powered by autonomous edge nodes. Secured on Robinhood Virtuals rails.</p>
             
             <div class="cta-group">
-                <a href="#console" class="btn primary">INITIALIZE CONSOLE</a>
-                <a href="https://app.virtuals.io" target="_blank" class="btn secondary">BUY $IRONCORE</a>
+                <a href="#console" class="btn primary">LAUNCH_CONSOLE</a>
+                <a href="https://app.virtuals.io" target="_blank" class="btn secondary">ACQUIRE $IRONCORE</a>
+            </div>
+        </section>
+
+        <!-- Live Network Monitor HUD -->
+        <section class="network-hud">
+            <div class="hud-item">
+                <span class="hud-label">NETWORK_HASH</span>
+                <span class="hud-val" id="hud-hash">0x8Ff9...Aaf</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">ACTIVE_NODES</span>
+                <span class="hud-val" id="hud-nodes">142 / 150</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">TELEMETRY_LATENCY</span>
+                <span class="hud-val" id="hud-latency">12.4ms</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">BONDING_CURVE_PROGRESS</span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 42%;"></div>
+                    <span class="progress-text">42.8%</span>
+                </div>
             </div>
         </section>
 
@@ -43,6 +67,11 @@
                         <span></span><span></span><span></span>
                     </div>
                     <div class="terminal-title">ironcore@node_01:~</div>
+                    <div class="terminal-actions">
+                        <button class="term-action-btn" onclick="runCommand('status')">RUN_STATUS</button>
+                        <button class="term-action-btn" onclick="runCommand('nodes')">LIST_NODES</button>
+                        <button class="term-action-btn" onclick="runCommand('help')">HELP</button>
+                    </div>
                 </div>
                 <div class="terminal-body" id="terminal-body">
                     <p class="term-line"><span class="prompt">ironcore@node_01:~$</span> init_core --protocol=virtuals</p>
@@ -51,28 +80,54 @@
                     <p class="term-line warning">! Warnings: Cloud APIs bypassed. Edge compute mode active.</p>
                     <p class="term-line"><span class="prompt">ironcore@node_01:~$</span> load_agent --name=IRONCORE_V1</p>
                     <p class="term-line success">✓ Agent memory loaded: 80+ industrial skillsets</p>
-                    <p class="term-line blink">■ Waiting for operator commands...</p>
+                    <p class="term-line">Type 'help' or click quick actions above to interact.</p>
+                    <div id="terminal-input-line" class="term-line">
+                        <span class="prompt">ironcore@node_01:~$</span> <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Spec Sheet -->
+        <section class="spec-sheet">
+            <h2>TECHNICAL_SPECIFICATIONS</h2>
+            <div class="spec-table">
+                <div class="spec-row">
+                    <div class="spec-key">COMPUTE_ENGINE</div>
+                    <div class="spec-val">Localized Tensor Core Array, offline-first execution</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-key">FAILSAFE_PROTOCOL</div>
+                    <div class="spec-val">Hardware interrupt loops bypassing soft layer constraints</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-key">ONCHAIN_CREDENTIALS</div>
+                    <div class="spec-val">Virtuals protocol bonding curve gate, node token stake required</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-key">ROBOTIC_DRIVERS</div>
+                    <div class="spec-val">ROS2 native node daemon, custom bridge configs (EtherCAT/Modbus)</div>
                 </div>
             </div>
         </section>
 
         <section class="features">
-            <h2>ARCHITECTURE</h2>
+            <h2>SYSTEM_ARCHITECTURE</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="card-icon">⚡</div>
-                    <h3>Edge Compute</h3>
-                    <p>No central servers. Agents run directly on decentralized nodes near physical robots. Low latency, zero censorship.</p>
+                    <h3>Edge Compute Grid</h3>
+                    <p>No AWS. No cloud latency. AI nodes run adjacent to hardware actuators to prevent remote execution failure modes.</p>
                 </div>
                 <div class="feature-card">
                     <div class="card-icon">⚙️</div>
-                    <h3>Industrial Logic</h3>
-                    <p>Built with hardware integration safety loops. Prevents software hallucinations from affecting physical motors.</p>
+                    <h3>Physical Failsafes</h3>
+                    <p>On-chain status reports run parallel to hardwired relays. If node loses blockchain sync, machinery enters state-safe standby.</p>
                 </div>
                 <div class="feature-card">
                     <div class="card-icon">🔒</div>
-                    <h3>Robinhood Rail</h3>
-                    <p>Secured on-chain. Token transactions verify machine access credentials without web2 auth databases.</p>
+                    <h3>Zero Trust Auth</h3>
+                    <p>Sovereign operators control machinery via cryptographic signatures. No central admin databases to exploit.</p>
                 </div>
             </div>
         </section>
@@ -110,7 +165,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 IRONCORE PROTOCOL. NO CLOUD. NO REFUSALS.</p>
+        <p>&copy; 2026 IRONCORE PROTOCOL. NO CLOUD. NO REFUSALS. ON-CHAIN HARDWARE LAYER.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
