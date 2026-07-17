@@ -112,7 +112,7 @@ function processCLI(cmdStr) {
 function writeCommand(text) {
     const p = document.createElement('p');
     p.className = 'term-line';
-    p.innerHTML = `<span class="prompt">ironcore@node_01:~$</span> ${text}`;
+    p.innerHTML = `<span class="prompt">ironhood@node_01:~$</span> ${text}`;
     terminalBody.insertBefore(p, terminalInputLine);
     terminalBody.scrollTop = terminalBody.scrollHeight;
 }
