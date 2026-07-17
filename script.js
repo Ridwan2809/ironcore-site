@@ -11,8 +11,8 @@ const statusTag = document.getElementById('status-tag');
     const ctx = canvas.getContext('2d');
     let particles = [];
     let mouse = { x: null, y: null };
-    const PARTICLE_COUNT = 70;
-    const MAX_DIST = 140;
+    const PARTICLE_COUNT = 110;
+    const MAX_DIST = 160;
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -52,8 +52,11 @@ const statusTag = document.getElementById('status-tag');
             p.update();
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(249, 115, 22, 0.5)';
+            ctx.fillStyle = 'rgba(249, 115, 22, 0.85)';
+            ctx.shadowColor = 'rgba(249, 115, 22, 0.8)';
+            ctx.shadowBlur = 4;
             ctx.fill();
+            ctx.shadowBlur = 0;
         });
 
         for (let i = 0; i < particles.length; i++) {
@@ -65,8 +68,8 @@ const statusTag = document.getElementById('status-tag');
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(249, 115, 22, ${0.12 * (1 - dist / MAX_DIST)})`;
-                    ctx.lineWidth = 0.6;
+                    ctx.strokeStyle = `rgba(249, 115, 22, ${0.35 * (1 - dist / MAX_DIST)})`;
+                    ctx.lineWidth = 0.8;
                     ctx.stroke();
                 }
             }
