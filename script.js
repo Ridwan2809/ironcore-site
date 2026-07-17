@@ -4,6 +4,45 @@ const terminalInputLine = document.getElementById('terminal-input-line');
 const connectBtn = document.getElementById('connect-btn');
 const statusTag = document.getElementById('status-tag');
 
+// Copy contract address to clipboard
+function copyCA() {
+    const caValue = document.getElementById('ca-value');
+    const caBtn = document.getElementById('ca-copy-btn');
+    if (!caValue || !caBtn) return;
+
+    navigator.clipboard.writeText(caValue.innerText).then(() => {
+        const original = caBtn.innerText;
+        caBtn.innerText = 'COPIED';
+        caBtn.classList.add('copied');
+        setTimeout(() => {
+            caBtn.innerText = original;
+            caBtn.classList.remove('copied');
+        }, 1500);
+    }).catch(() => {
+        caBtn.innerText = 'FAILED';
+    });
+}
+
+// FAQ accordion toggle (single-open behavior)
+function toggleFaq(item) {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+    if (!isOpen) {
+        item.classList.add('open');
+    }
+}
+
+// Scroll-to-top button visibility
+const scrollTopBtn = document.getElementById('scroll-top-btn');
+window.addEventListener('scroll', () => {
+    if (!scrollTopBtn) return;
+    if (window.scrollY > 400) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
 // Network HUD Randomizers for realistic industrial feel
 setInterval(() => {
     // Latency variation

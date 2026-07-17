@@ -34,6 +34,12 @@
                 <a href="#console" class="btn primary">LAUNCH_CONSOLE</a>
                 <a href="https://app.virtuals.io" target="_blank" class="btn secondary">ACQUIRE $IRONHOOD</a>
             </div>
+
+            <div class="ca-bar">
+                <span class="ca-label">CONTRACT_ADDRESS</span>
+                <span class="ca-value" id="ca-value">0x0000000000000000000000000000000000000000</span>
+                <button class="ca-copy-btn" id="ca-copy-btn" onclick="copyCA()">COPY</button>
+            </div>
         </section>
 
         <!-- Live Network Monitor HUD -->
@@ -137,6 +143,88 @@
             <p class="quote">"Software agents are fragile. Cloud networks fail. IRONHOOD integrates heavy industrial automation logic with on-chain consensus. We execute AI reasoning locally, close to raw compute."</p>
         </section>
 
+        <!-- Deployment Roadmap -->
+        <section class="roadmap">
+            <h2>DEPLOYMENT_SEQUENCE</h2>
+            <div class="roadmap-track">
+                <div class="phase done">
+                    <div class="phase-node"></div>
+                    <div class="phase-content">
+                        <span class="phase-tag">PHASE_01 — COMPLETE</span>
+                        <h3>Genesis Forge</h3>
+                        <p>Token launch on Robinhood Virtuals. Bonding curve activated. Core node firmware sealed.</p>
+                    </div>
+                </div>
+                <div class="phase active">
+                    <div class="phase-node"></div>
+                    <div class="phase-content">
+                        <span class="phase-tag">PHASE_02 — IN_PROGRESS</span>
+                        <h3>Node Expansion</h3>
+                        <p>Operator onboarding portal. Edge node staking live. First 150 hardware nodes deployed globally.</p>
+                    </div>
+                </div>
+                <div class="phase">
+                    <div class="phase-node"></div>
+                    <div class="phase-content">
+                        <span class="phase-tag">PHASE_03 — QUEUED</span>
+                        <h3>Physical Bridge</h3>
+                        <p>ROS2 driver SDK public release. First robotic arm controlled via on-chain signature. Partner integrations.</p>
+                    </div>
+                </div>
+                <div class="phase">
+                    <div class="phase-node"></div>
+                    <div class="phase-content">
+                        <span class="phase-tag">PHASE_04 — QUEUED</span>
+                        <h3>Autonomous Fleet</h3>
+                        <p>Self-governing node DAO. Machine-to-machine payment rails. Full decentralized industrial grid.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion -->
+        <section class="faq">
+            <h2>QUERY_INTERFACE</h2>
+            <div class="faq-list">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        <span>What is IRONHOOD?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>IRONHOOD is a decentralized control layer that lets physical machines run AI agents on local edge hardware, with credentials and state secured on the Robinhood Virtuals chain. No cloud dependency, no central point of failure.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        <span>How do I become a node operator?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>Stake $IRONHOOD tokens to register an edge node. Once your hardware passes the handshake protocol, your node joins the network and earns rewards from the 20% Node Rewards pool.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        <span>Why on-chain for hardware control?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>Cryptographic signatures replace vulnerable admin databases. Only sovereign operators holding valid keys can command machinery — no password leaks, no server breaches, no remote takeover.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        <span>What happens if a node loses connection?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>Physical failsafes trigger. If a node loses blockchain sync, hardwired relays force the machinery into state-safe standby. Software failure never propagates to physical motion.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="tokenomics">
             <h2>SYSTEM CONFIGURATION</h2>
             <div class="tok-grid">
@@ -165,8 +253,16 @@
     </main>
 
     <footer>
+        <div class="footer-links">
+            <a href="https://x.com" target="_blank">X / TWITTER</a>
+            <a href="https://t.me" target="_blank">TELEGRAM</a>
+            <a href="https://app.virtuals.io" target="_blank">VIRTUALS</a>
+            <a href="https://github.com/Ridwan2809/ironcore-site" target="_blank">GITHUB</a>
+        </div>
         <p>&copy; 2026 IRONHOOD PROTOCOL. NO CLOUD. NO REFUSALS. ON-CHAIN HARDWARE LAYER.</p>
     </footer>
+
+    <button id="scroll-top-btn" class="scroll-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script src="script.js"></script>
 </body>
