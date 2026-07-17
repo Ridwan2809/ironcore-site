@@ -890,3 +890,51 @@ footer {
     .ca-bar { flex-wrap: wrap; }
     .ca-value { font-size: 0.7rem; }
 }
+
+@media (max-width: 768px) {
+    /* Terminal header: let title hide, buttons scroll horizontally instead of overflowing */
+    .terminal-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .terminal-title {
+        display: none;
+    }
+    .terminal-actions {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.25rem;
+    }
+    .term-action-btn {
+        flex-shrink: 0;
+    }
+    .terminal-body {
+        height: 300px;
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+    #terminal-input {
+        font-size: 16px; /* prevent iOS auto-zoom on focus */
+    }
+    .term-line {
+        word-break: break-word;
+    }
+    /* Smaller mech core on mobile so it doesn't dominate */
+    .mech-core {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 2rem;
+    }
+    .ring-1 { width: 140px; height: 140px; }
+    .ring-2 { width: 105px; height: 105px; }
+    .ring-3 { width: 70px; height: 70px; }
+    .core-center { width: 35px; height: 35px; }
+    header {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    .footer-links {
+        gap: 1rem;
+    }
+}

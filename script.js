@@ -11,8 +11,9 @@ const statusTag = document.getElementById('status-tag');
     const ctx = canvas.getContext('2d');
     let particles = [];
     let mouse = { x: null, y: null };
-    const PARTICLE_COUNT = 110;
-    const MAX_DIST = 160;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const PARTICLE_COUNT = isMobile ? 45 : 100;
+    const MAX_DIST = isMobile ? 120 : 160;
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -51,12 +52,9 @@ const statusTag = document.getElementById('status-tag');
         particles.forEach(p => {
             p.update();
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(249, 115, 22, 0.85)';
-            ctx.shadowColor = 'rgba(249, 115, 22, 0.8)';
-            ctx.shadowBlur = 4;
+            ctx.arc(p.x, p.y, p.radius * 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(249, 115, 22, 0.9)';
             ctx.fill();
-            ctx.shadowBlur = 0;
         });
 
         for (let i = 0; i < particles.length; i++) {
