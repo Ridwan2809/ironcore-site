@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syncopate:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+    <canvas id="particle-canvas"></canvas>
     <div class="grid-bg"></div>
     <div class="glow-orb"></div>
     
@@ -26,8 +27,14 @@
 
     <main>
         <section class="hero">
+            <div class="mech-core">
+                <div class="core-ring ring-1"></div>
+                <div class="core-ring ring-2"></div>
+                <div class="core-ring ring-3"></div>
+                <div class="core-center"></div>
+            </div>
             <div class="meta-tag">CORE_AGENCY v1.0.4</div>
-            <h1>ROBOTIC AGENCY<br><span class="highlight">FORGED ON-CHAIN</span></h1>
+            <h1><span id="typed-line">ROBOTIC AGENCY</span><br><span class="highlight">FORGED ON-CHAIN</span></h1>
             <p class="subtitle">Decentralized control layer for physical machines. Powered by autonomous edge nodes. Secured on Robinhood Virtuals rails.</p>
             
             <div class="cta-group">
@@ -43,7 +50,7 @@
         </section>
 
         <!-- Live Network Monitor HUD -->
-        <section class="network-hud">
+        <section class="reveal network-hud">
             <div class="hud-item">
                 <span class="hud-label">NETWORK_HASH</span>
                 <span class="hud-val" id="hud-hash">0x8Ff9...Aaf</span>
@@ -66,7 +73,7 @@
         </section>
 
         <!-- Interactive Terminal Simulator -->
-        <section id="console" class="console-section">
+        <section id="console" class="reveal console-section">
             <div class="terminal-window">
                 <div class="terminal-header">
                     <div class="terminal-buttons">
@@ -95,7 +102,7 @@
         </section>
 
         <!-- Interactive Spec Sheet -->
-        <section class="spec-sheet">
+        <section class="reveal spec-sheet">
             <h2>TECHNICAL_SPECIFICATIONS</h2>
             <div class="spec-table">
                 <div class="spec-row">
@@ -117,7 +124,7 @@
             </div>
         </section>
 
-        <section class="features">
+        <section class="reveal features">
             <h2>SYSTEM_ARCHITECTURE</h2>
             <div class="features-grid">
                 <div class="feature-card">
@@ -138,13 +145,13 @@
             </div>
         </section>
 
-        <section class="manifesto">
+        <section class="reveal manifesto">
             <h2>THE CORE PRINCIPLE</h2>
             <p class="quote">"Software agents are fragile. Cloud networks fail. IRONHOOD integrates heavy industrial automation logic with on-chain consensus. We execute AI reasoning locally, close to raw compute."</p>
         </section>
 
         <!-- Deployment Roadmap -->
-        <section class="roadmap">
+        <section class="reveal roadmap">
             <h2>DEPLOYMENT_SEQUENCE</h2>
             <div class="roadmap-track">
                 <div class="phase done">
@@ -183,7 +190,7 @@
         </section>
 
         <!-- FAQ Accordion -->
-        <section class="faq">
+        <section class="reveal faq">
             <h2>QUERY_INTERFACE</h2>
             <div class="faq-list">
                 <div class="faq-item" onclick="toggleFaq(this)">
@@ -225,7 +232,7 @@
             </div>
         </section>
 
-        <section class="tokenomics">
+        <section class="reveal tokenomics">
             <h2>SYSTEM CONFIGURATION</h2>
             <div class="tok-grid">
                 <div class="tok-item">

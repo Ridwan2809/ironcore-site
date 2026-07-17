@@ -4,6 +4,125 @@ const terminalInputLine = document.getElementById('terminal-input-line');
 const connectBtn = document.getElementById('connect-btn');
 const statusTag = document.getElementById('status-tag');
 
+// ---- Particle Neural Network Background ----
+(function initParticleNetwork() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+    const PARTICLE_COUNT = 70;
+    const MAX_DIST = 140;
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    function Particle() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 1.5 + 0.5;
+    }
+
+    Particle.prototype.update = function () {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    };
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+            p.update();
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(249, 115, 22, 0.5)';
+            ctx.fill();
+        });
+
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DIST) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(249, 115, 22, ${0.12 * (1 - dist / MAX_DIST)})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
+            }
+
+            if (mouse.x !== null) {
+                const dx = particles[i].x - mouse.x;
+                const dy = particles[i].y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DIST * 1.3) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `rgba(249, 115, 22, ${0.25 * (1 - dist / (MAX_DIST * 1.3))})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+// ---- Scroll Reveal via IntersectionObserver ----
+(function initScrollReveal() {
+    const targets = document.querySelectorAll('.reveal');
+    if (!targets.length) return;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    targets.forEach(t => observer.observe(t));
+})();
+
+// ---- Typewriter effect on hero headline ----
+(function initTypewriter() {
+    const el = document.getElementById('typed-line');
+    if (!el) return;
+    const fullText = el.innerText;
+    el.innerText = '';
+    let i = 0;
+    function type() {
+        if (i <= fullText.length) {
+            el.innerText = fullText.slice(0, i);
+            i++;
+            setTimeout(type, 60);
+        }
+    }
+    type();
+})();
+
 // Copy contract address to clipboard
 function copyCA() {
     const caValue = document.getElementById('ca-value');
