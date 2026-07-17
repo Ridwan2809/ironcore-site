@@ -201,28 +201,174 @@ if (connectBtn) {
     });
 }
 
-// Quick action buttons
-function runCommand(cmd) {
-    if (cmd === 'status') {
-        writeCommand('check_system');
-        writeLine('SYSTEM INITIALIZATION DETAILS:');
-        writeLine('- Core Temperature: 42.4°C (Nominal)');
-        writeLine('- Failsafe State: UNARMED (Ready)');
-        writeLine('- Buffer Status: CLEAR');
-    } else if (cmd === 'nodes') {
-        writeCommand('list_edge_nodes');
-        writeLine('LOCATING LOCAL INSTANCES...');
-        writeLine('Node_01_US_East: 0x3746...99C - ACTIVE');
-        writeLine('Node_02_EU_West: 0x8Ff9...96b - ACTIVE');
-        writeLine('Node_03_AS_South: 0x2FA7...3F3 - STANDBY');
-    } else if (cmd === 'help') {
-        writeCommand('help');
-        writeLine('AVAILABLE CORE COMMANDS:');
-        writeLine('  status   - Outputs hardware state parameters');
-        writeLine('  nodes    - Query active edge node network addresses');
-        writeLine('  clear    - Flush terminal console memory');
+// ---- Command Registry ----
+// Each command: { desc, run(args) }. run() returns array of {text, type} lines or void.
+const COMMANDS = {
+    help: {
+        desc: 'List all available commands',
+        run: () => {
+            const out = [{ text: 'IRONHOOD CORE :: COMMAND REFERENCE', type: 'success' }];
+            Object.keys(COMMANDS).sort().forEach(name => {
+                out.push({ text: `  ${name.padEnd(12)} ${COMMANDS[name].desc}` });
+            });
+            out.push({ text: "Tip: use ↑/↓ for history, Tab to autocomplete." });
+            return out;
+        }
+    },
+    status: {
+        desc: 'Show hardware state parameters',
+        run: () => [
+            { text: 'SYSTEM STATE READOUT:', type: 'success' },
+            { text: `- Core Temperature: ${(40 + Math.random() * 5).toFixed(1)}°C (Nominal)` },
+            { text: '- Failsafe State: UNARMED (Ready)' },
+            { text: `- Uptime: ${Math.floor(100 + Math.random() * 800)}h ${Math.floor(Math.random()*60)}m` },
+            { text: '- Buffer Status: CLEAR' }
+        ]
+    },
+    nodes: {
+        desc: 'Query active edge nodes on the network',
+        run: () => [
+            { text: 'SCANNING EDGE MESH...', type: 'warning' },
+            { text: 'Node_01_US_East   0x3746...99C   ACTIVE   8ms', type: 'success' },
+            { text: 'Node_02_EU_West   0x8Ff9...96b   ACTIVE   14ms', type: 'success' },
+            { text: 'Node_03_AS_South  0x2FA7...3F3   STANDBY  --', type: 'warning' },
+            { text: 'Node_04_SA_East   0x43E7...7aF   ACTIVE   22ms', type: 'success' },
+            { text: '4 nodes found (3 active, 1 standby)' }
+        ]
+    },
+    price: {
+        desc: 'Fetch current $IRONHOOD market data',
+        run: () => {
+            const price = (0.0008 + Math.random() * 0.0004).toFixed(6);
+            const chg = (Math.random() * 60 - 20).toFixed(2);
+            const chgType = parseFloat(chg) >= 0 ? 'success' : 'error';
+            return [
+                { text: 'QUERYING ROBINHOOD VIRTUALS ORACLE...', type: 'warning' },
+                { text: `$IRONHOOD  ::  $${price}` },
+                { text: `24h Change ::  ${chg >= 0 ? '+' : ''}${chg}%`, type: chgType },
+                { text: `Market Cap ::  $${(Math.random() * 3 + 1).toFixed(2)}M` },
+                { text: 'Note: simulated feed. Live data at launch.' }
+            ];
+        }
+    },
+    buy: {
+        desc: 'Open acquisition portal for $IRONHOOD',
+        run: () => {
+            setTimeout(() => window.open('https://app.virtuals.io', '_blank'), 600);
+            return [
+                { text: 'INITIATING ACQUISITION SEQUENCE...', type: 'warning' },
+                { text: 'Redirecting to Robinhood Virtuals bonding curve...', type: 'success' }
+            ];
+        }
+    },
+    stake: {
+        desc: 'Simulate node operator staking',
+        run: (args) => {
+            const amt = args[0] ? parseFloat(args[0]) : null;
+            if (!amt || isNaN(amt)) {
+                return [{ text: 'Usage: stake <amount>   e.g. stake 50000', type: 'warning' }];
+            }
+            return [
+                { text: `Staking ${amt.toLocaleString()} $IRONHOOD...`, type: 'warning' },
+                { text: '✓ Stake locked. Node slot reserved.', type: 'success' },
+                { text: `Estimated APY: ${(18 + Math.random() * 22).toFixed(1)}%`, type: 'success' },
+                { text: 'Your node enters the handshake queue.' }
+            ];
+        }
+    },
+    ca: {
+        desc: 'Print the contract address',
+        run: () => [
+            { text: 'CONTRACT ADDRESS ($IRONHOOD):' },
+            { text: '0x0000000000000000000000000000000000000000', type: 'success' },
+            { text: 'Placeholder — live address published at launch.' }
+        ]
+    },
+    roadmap: {
+        desc: 'Show deployment sequence',
+        run: () => [
+            { text: 'DEPLOYMENT SEQUENCE:', type: 'success' },
+            { text: '[✓] PHASE_01  Genesis Forge      COMPLETE', type: 'success' },
+            { text: '[~] PHASE_02  Node Expansion     IN_PROGRESS', type: 'warning' },
+            { text: '[ ] PHASE_03  Physical Bridge    QUEUED' },
+            { text: '[ ] PHASE_04  Autonomous Fleet   QUEUED' }
+        ]
+    },
+    tokenomics: {
+        desc: 'Display token distribution',
+        run: () => [
+            { text: 'TOKEN DISTRIBUTION (1,000,000,000 $IRONHOOD):' },
+            { text: '  60%  Bonding Curve   (Fair Launch)', type: 'success' },
+            { text: '  20%  Node Rewards    (Active Operators)', type: 'success' },
+            { text: '  20%  Treasury        (R&D and Forge)', type: 'success' }
+        ]
+    },
+    socials: {
+        desc: 'List official channels',
+        run: () => [
+            { text: 'OFFICIAL CHANNELS:' },
+            { text: '  X/Twitter :: x.com' },
+            { text: '  Telegram  :: t.me' },
+            { text: '  Virtuals  :: app.virtuals.io' },
+            { text: '  GitHub    :: github.com/Ridwan2809/ironcore-site' }
+        ]
+    },
+    whoami: {
+        desc: 'Identify current operator session',
+        run: () => {
+            const authed = connectBtn && connectBtn.innerText !== 'CONNECT_OPERATOR';
+            return authed
+                ? [{ text: 'operator: 0xWans...Node (AUTHORIZED)', type: 'success' }]
+                : [{ text: 'guest (unauthenticated) — click CONNECT_OPERATOR to sign in', type: 'warning' }];
+        }
+    },
+    ping: {
+        desc: 'Ping the core node',
+        run: () => [
+            { text: 'PING node_01 ...', type: 'warning' },
+            { text: `64 bytes: icmp_seq=1 time=${(6 + Math.random() * 4).toFixed(1)}ms`, type: 'success' },
+            { text: `64 bytes: icmp_seq=2 time=${(6 + Math.random() * 4).toFixed(1)}ms`, type: 'success' },
+            { text: 'PONG. Core is alive.', type: 'success' }
+        ]
+    },
+    gm: {
+        desc: 'Greet the network',
+        run: () => [{ text: 'gm operator. ☀️  The forge never sleeps.', type: 'success' }]
+    },
+    banner: {
+        desc: 'Print the IRONHOOD banner',
+        run: () => [
+            { text: ' ___ ____   ___  _   _ _   _  ___   ___  ____  ', type: 'success' },
+            { text: '|_ _|  _ \\ / _ \\| \\ | | | | |/ _ \\ / _ \\|  _ \\ ', type: 'success' },
+            { text: ' | || |_) | | | |  \\| | |_| | | | | | | | | | |', type: 'success' },
+            { text: ' | ||  _ <| |_| | |\\  |  _  | |_| | |_| | |_| |', type: 'success' },
+            { text: '|___|_| \\_\\\\___/|_| \\_|_| |_|\\___/ \\___/|____/ ', type: 'success' },
+            { text: 'ON-CHAIN INDUSTRIAL AI ROBOTICS' }
+        ]
+    },
+    echo: {
+        desc: 'Echo back your input',
+        run: (args) => [{ text: args.join(' ') || '' }]
+    },
+    date: {
+        desc: 'Show current system time',
+        run: () => [{ text: new Date().toString() }]
+    },
+    clear: {
+        desc: 'Clear the terminal screen',
+        run: () => 'CLEAR'
     }
+};
+
+// Quick action buttons (header)
+function runCommand(cmd) {
+    processCLI(cmd);
+    if (terminalInput) terminalInput.focus();
 }
+
+// ---- Command history state ----
+let cmdHistory = [];
+let historyIndex = -1;
 
 // Terminal CLI Input handler
 if (terminalInput) {
@@ -230,43 +376,72 @@ if (terminalInput) {
         if (e.key === 'Enter') {
             const rawCmd = terminalInput.value.trim();
             terminalInput.value = '';
-            
             if (rawCmd) {
+                cmdHistory.push(rawCmd);
+                historyIndex = cmdHistory.length;
                 processCLI(rawCmd);
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (cmdHistory.length && historyIndex > 0) {
+                historyIndex--;
+                terminalInput.value = cmdHistory[historyIndex];
+                moveCursorEnd();
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (historyIndex < cmdHistory.length - 1) {
+                historyIndex++;
+                terminalInput.value = cmdHistory[historyIndex];
+            } else {
+                historyIndex = cmdHistory.length;
+                terminalInput.value = '';
+            }
+            moveCursorEnd();
+        } else if (e.key === 'Tab') {
+            e.preventDefault();
+            const partial = terminalInput.value.trim().toLowerCase();
+            if (partial) {
+                const match = Object.keys(COMMANDS).find(c => c.startsWith(partial));
+                if (match) terminalInput.value = match;
             }
         }
     });
+    // Keep focus when clicking anywhere in the terminal body
+    if (terminalBody) {
+        terminalBody.addEventListener('click', () => terminalInput.focus());
+    }
+}
+
+function moveCursorEnd() {
+    setTimeout(() => {
+        terminalInput.selectionStart = terminalInput.selectionEnd = terminalInput.value.length;
+    }, 0);
 }
 
 function processCLI(cmdStr) {
     writeCommand(cmdStr);
-    const cmd = cmdStr.toLowerCase().split(' ')[0];
-    
-    switch (cmd) {
-        case 'help':
-            writeLine('AVAILABLE CORE COMMANDS: help, status, nodes, clear');
-            break;
-        case 'status':
-            writeLine('SYSTEM INITIALIZATION DETAILS:');
-            writeLine('- Core Temperature: 42.4°C (Nominal)');
-            writeLine('- Failsafe State: UNARMED (Ready)');
-            break;
-        case 'nodes':
-            writeLine('LOCATING LOCAL INSTANCES...');
-            writeLine('Node_01_US_East: 0x3746...99C - ACTIVE');
-            writeLine('Node_02_EU_West: 0x8Ff9...96b - ACTIVE');
-            break;
-        case 'clear':
-            // Clear all lines except input line
-            const lines = terminalBody.querySelectorAll('.term-line');
-            lines.forEach(line => {
-                if (line !== terminalInputLine) {
-                    line.remove();
-                }
-            });
-            break;
-        default:
-            writeLine(`bash: command not found: ${cmdStr}`, 'error');
+    const parts = cmdStr.trim().split(/\s+/);
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1);
+
+    const entry = COMMANDS[cmd];
+    if (!entry) {
+        writeLine(`bash: command not found: ${cmd}`, 'error');
+        writeLine("Type 'help' to list available commands.", 'warning');
+        return;
+    }
+
+    const result = entry.run(args);
+    if (result === 'CLEAR') {
+        const lines = terminalBody.querySelectorAll('.term-line');
+        lines.forEach(line => {
+            if (line !== terminalInputLine) line.remove();
+        });
+        return;
+    }
+    if (Array.isArray(result)) {
+        result.forEach(line => writeLine(line.text, line.type || ''));
     }
 }
 

@@ -81,8 +81,10 @@
                     </div>
                     <div class="terminal-title">ironhood@node_01:~</div>
                     <div class="terminal-actions">
-                        <button class="term-action-btn" onclick="runCommand('status')">RUN_STATUS</button>
-                        <button class="term-action-btn" onclick="runCommand('nodes')">LIST_NODES</button>
+                        <button class="term-action-btn" onclick="runCommand('status')">STATUS</button>
+                        <button class="term-action-btn" onclick="runCommand('nodes')">NODES</button>
+                        <button class="term-action-btn" onclick="runCommand('price')">PRICE</button>
+                        <button class="term-action-btn" onclick="runCommand('roadmap')">ROADMAP</button>
                         <button class="term-action-btn" onclick="runCommand('help')">HELP</button>
                     </div>
                 </div>
@@ -93,7 +95,7 @@
                     <p class="term-line warning">! Warnings: Cloud APIs bypassed. Edge compute mode active.</p>
                     <p class="term-line"><span class="prompt">ironhood@node_01:~$</span> load_agent --name=IRONHOOD_V1</p>
                     <p class="term-line success">✓ Agent memory loaded: 80+ industrial skillsets</p>
-                    <p class="term-line">Type 'help' or click quick actions above to interact.</p>
+                    <p class="term-line">Type 'help' for the full command list, or click quick actions above.</p>
                     <div id="terminal-input-line" class="term-line">
                         <span class="prompt">ironhood@node_01:~$</span> <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
                     </div>
