@@ -331,7 +331,7 @@ const COMMANDS = {
     },
     gm: {
         desc: 'Greet the network',
-        run: () => [{ text: 'gm operator. ☀️  The forge never sleeps.', type: 'success' }]
+        run: () => [{ text: 'gm operator. The forge never sleeps.', type: 'success' }]
     },
     banner: {
         desc: 'Print the IRONHOOD banner',

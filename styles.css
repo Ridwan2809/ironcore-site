@@ -537,8 +537,17 @@ h1 {
 }
 
 .card-icon {
-    font-size: 2rem;
     margin-bottom: 1.5rem;
+    color: var(--primary);
+    transition: transform 0.2s ease;
+}
+
+.feature-card:hover .card-icon {
+    transform: translateY(-3px);
+}
+
+.card-icon svg {
+    display: inline-block;
 }
 
 .feature-card h3 {
@@ -864,7 +873,9 @@ footer {
     background-color: var(--primary);
     color: #000;
     border: none;
-    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
