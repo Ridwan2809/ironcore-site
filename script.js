@@ -268,7 +268,7 @@ const COMMANDS = {
             }
             return [
                 { text: `Staking ${amt.toLocaleString()} $IRONHOOD...`, type: 'warning' },
-                { text: '✓ Stake locked. Node slot reserved.', type: 'success' },
+                { text: '[OK] Stake locked. Node slot reserved.', type: 'success' },
                 { text: `Estimated APY: ${(18 + Math.random() * 22).toFixed(1)}%`, type: 'success' },
                 { text: 'Your node enters the handshake queue.' }
             ];
@@ -286,8 +286,8 @@ const COMMANDS = {
         desc: 'Show deployment sequence',
         run: () => [
             { text: 'DEPLOYMENT SEQUENCE:', type: 'success' },
-            { text: '[✓] PHASE_01  Genesis Forge      COMPLETE', type: 'success' },
-            { text: '[~] PHASE_02  Node Expansion     IN_PROGRESS', type: 'warning' },
+            { text: '[x] PHASE_01  Genesis Forge      COMPLETE', type: 'success' },
+            { text: '[/] PHASE_02  Node Expansion     IN_PROGRESS', type: 'warning' },
             { text: '[ ] PHASE_03  Physical Bridge    QUEUED' },
             { text: '[ ] PHASE_04  Autonomous Fleet   QUEUED' }
         ]
